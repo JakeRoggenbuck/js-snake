@@ -109,6 +109,15 @@ class block {
         this.direction = direction;
     }
     set_position (new_x, new_y, new_direction) {
+        if (new_x > windowWidth) {
+            new_x = new_x - windowWidth;
+        } else if (new_x < 0) {
+            new_x = new_x + windowWidth;
+        } if (new_y > windowHeight) {
+            new_y = new_y - windowHeight;
+        } else if (new_y < 0) {
+            new_y = new_y + windowHeight;
+        }
         this.x_position = new_x;
         this.y_position = new_y;
         this.direction = new_direction;
