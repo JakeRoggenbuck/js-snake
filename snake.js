@@ -1,4 +1,3 @@
-//import snake from './classes.js';
 // Flags the canvas
 let cnv;
 
@@ -19,22 +18,29 @@ function centerCanvas() {
 } function windowResized() {
     centerCanvas();
 }
-
-
+var my_snake = new snake(100, 100, "#ff00d8", directions.DOWN);
 async function setup() {
   // Create the canvas
   cnv = createCanvas(windowWidth, windowHeight);
   // Center the Canvas
   centerCanvas();
-  
+  frameRate(15);
+  // Set background to black, remove the stroke
+  noStroke();
+  for (let i = 0; i < 5; i++) {
+    my_snake.add_block();
+  }
+   
+}
+
+function keyPressed() {
+  my_snake.change_head_direction(keyCode);
 }
 
   /** p5 draw function */
-function draw() {
-  // Remove the ugly stroke
-  noStroke();
-  // Set the background to black
-  rect(50, 50, 10, 10);
-  background("red");
-  console.log("My aass");
+async function draw() {
+  clear();
+  background("black")
+  my_snake.draw_blocks();
+  my_snake.move()
 }
