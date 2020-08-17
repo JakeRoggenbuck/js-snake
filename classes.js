@@ -5,7 +5,7 @@ let block_distance = 5;
 // Distance from then end of one block to the end of another
 let block_to_block = side_length + block_distance;
 // How much distance to move each frame
-let move_distance = 20;
+let move_distance = block_to_block;
 // Fake Enum for the directions (js sucks)
 const directions = {
     UP: 0,
@@ -63,18 +63,20 @@ class snake {
     }
     // Moves the snake forward once
     move() {
+        var new_directions = [];
+        for (var index = 0; index < this.blocks.length; index++) {
+            if (index != 0) {
+                new_directions.push(this.blocks[index - 1].direction);
+            } else {
+                new_directions.push(this.blocks[index].direction);
+            }
+        }
         // Iterates over all blocks
         for (var index = 0; index < this.blocks.length; index++) {
             // Grabs the current block for clarity reasons
             block = this.blocks[index];
-            // Holds new coordinates and a new direction
-            var new_x, new_y, new_direction;
-            // The head block doesn't need to change direction, other blocks need to follow
-            if (index == 0) {
-                new_direction = block.direction;
-            } else {
-                new_direction = this.blocks[index - 1].direction;
-            }
+            // Holds new coordinates
+            var new_x, new_y;
             // Switch over each direction to move in the correct direction
             switch(block.direction) {
                 case(directions.UP):
@@ -91,7 +93,10 @@ class snake {
                     break;
             }
             // Call the set_position method to update the position
-            block.set_position(new_x, new_y, new_direction);
+            block.set_position(new_x, new_y);
+            // Set new direction
+            block.direction = new_directions[index];
+            
         }
     }
     // Changes the direction of the snake
@@ -120,7 +125,7 @@ class block {
         this.direction = direction;
     }
     // Sets a new position
-    set_position (new_x, new_y, new_direction) {
+    set_position (new_x, new_y) {
         // Wraps the blocks position so it doesn't go off of the screen
         if (new_x > windowWidth) {
             new_x = new_x - windowWidth;
@@ -134,7 +139,6 @@ class block {
         // Sets the new position
         this.x_position = new_x;
         this.y_position = new_y;
-        this.direction = new_direction;
     }
     // Draws the block
     draw_block(color) {

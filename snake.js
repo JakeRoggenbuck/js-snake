@@ -25,11 +25,11 @@ async function setup() {
   cnv = createCanvas(windowWidth, windowHeight);
   // Center the Canvas
   centerCanvas();
-  frameRate(15);
+  frameRate(10);
   // Set background to black, remove the stroke
   noStroke();
   // Adds five blocks
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 10; i++) {
     my_snake.add_block();
   }
    
@@ -46,5 +46,5 @@ async function draw() {
   background("black")
   // Draws the snake and moves it every frame
   my_snake.draw_blocks();
-  my_snake.move()
+  my_snake.move();
 }
