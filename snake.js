@@ -18,6 +18,7 @@ function centerCanvas() {
 } function windowResized() {
     centerCanvas();
 }
+// Creates a snake object
 var my_snake = new snake(100, 100, "#ff00d8", directions.DOWN);
 async function setup() {
   // Create the canvas
@@ -27,6 +28,7 @@ async function setup() {
   frameRate(15);
   // Set background to black, remove the stroke
   noStroke();
+  // Adds five blocks
   for (let i = 0; i < 5; i++) {
     my_snake.add_block();
   }
@@ -34,6 +36,7 @@ async function setup() {
 }
 
 function keyPressed() {
+  // Calls change head direction with the keyCode
   my_snake.change_head_direction(keyCode);
 }
 
@@ -41,6 +44,7 @@ function keyPressed() {
 async function draw() {
   clear();
   background("black")
+  // Draws the snake and moves it every frame
   my_snake.draw_blocks();
   my_snake.move()
 }
